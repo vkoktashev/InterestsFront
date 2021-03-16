@@ -1,0 +1,86 @@
+
+.calendarHeader
+    margin-bottom: 2rem
+
+.dayInfoBlock
+    display: inline-block
+    white-space: pre-line
+    max-width: 100%
+    max-height: 480px
+
+    .dayInfoDate
+        display: inline-block
+        width: auto
+
+    .dayInfoCategory
+        margin-bottom: 1rem
+
+.calendarDay
+    color: $textColor
+    padding: 0
+    height: auto
+    text-align: center
+    margin-top: 10px
+
+    .calendarDayTile
+        display: inline-block
+        color: $textColor
+        padding: 0.25rem
+        height: auto
+        text-align: center
+
+        &.Games
+            background-color: $calendarGamesColor
+
+        &.Movies
+            background-color: $calendarMoviesColor
+
+        &.Episodes
+            background-color: $calendarEpisodesColor
+
+.react-calendar
+    display: inline-block
+    vertical-align: top
+    width: 500px !important
+    max-width: 100% !important
+    background-color: $backgroundColor !important
+    border: 1px solid rgb(100, 100, 100) !important
+    border-radius: 10px
+    margin-right: 1rem
+
+.react-calendar__tile--active,
+.react-calendar__tile--hasActive
+    background: $activeBackgroundColor !important
+    border-radius: 10px
+
+.react-calendar button:disabled
+    background-color: $disabledBackgroundColor !important
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus,
+.react-calendar__tile--now,
+.react-calendar button
+    background-color: $backgroundColor
+    color: $textColor !important
+    border-radius: 10px
+
+.react-calendar button:active,
+.react-calendar button:focus
+    background-color: $activeBackgroundColor !important
+    border-radius: 10px
+
+.react-calendar__month-view__days__day--neighboringMonth
+    background-color: $disabledBackgroundColor !important
+
+.react-calendar button:hover
+    color: $hoverLinkColor !important
+    background-color: $activeBackgroundColor !important
+    border-radius: 10px
+
+.react-calendar button:disabled
+    background-color: $disabledBackgroundColor !important
+    border-radius: 10px
+
+.react-calendar__navigation__next2-button,
+.react-calendar__navigation__prev2-button
+    display: none

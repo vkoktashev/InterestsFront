@@ -1,0 +1,163 @@
+
+.categoriesTabs
+    white-space: pre
+    max-width: 100%
+    overflow-x: auto
+
+    .categoriesTab
+        background-color: $backgroundColor
+        color: $textColor
+        border: none
+        padding: 0px 20px 0px 0px
+        text-align: left
+        font-weight: bolder
+        margin-left: 0px
+        margin-right: 0px
+        margin-top: 15px
+        font-size: 32px
+        outline: none
+
+        &.active
+            color: $activeColor
+
+    .categoriesTab:focus
+        outline: 0 !important
+
+    .categoriesLine
+        background-color: $activeColor
+        height: 0.2rem
+        margin-top: 0px
+        margin-bottom: 10px
+        width: 100%
+
+.contentStatuses
+    max-width: 100%
+    margin-top: 15px
+
+    .contentStatus
+        background-color: $headerBackgroundColor
+        border: 1px solid $headerTextColor
+        color: $headerTextColor
+        padding: 4px 8px
+        text-align: center
+        margin: 0px
+        font-size: 1rem
+
+        &.active
+            background-color: $mainColor
+
+    .contentStatus:first-child
+        border-top-left-radius: 5px
+        border-bottom-left-radius: 5px
+
+    .contentStatus:last-child
+        border-top-right-radius: 5px
+        border-bottom-right-radius: 5px
+
+.friendsCards
+    width: 100%
+    display: flex
+    flex-direction: row
+    justify-content: center
+    flex-wrap: wrap
+    margin-top: 2px
+    margin-bottom: 1rem
+
+    .cardUser
+        max-width: 100%
+        width: 250px
+        height: 75px
+        margin-right: 5px
+        margin-left: 5px
+        margin-top: 10px
+        display: inline-block
+
+        .cardUserImage
+            height: inherit
+            width: 30%
+            background-position: center
+            background-repeat: no-repeat
+            background-size: cover
+            background-color: $activeBackgroundColor
+            display: inline-block
+            margin: 0
+            border-top-left-radius: 10px
+            border-bottom-left-radius: 10px
+
+        .cardUserText
+            height: inherit
+            width: 70%
+            padding: 10px
+            text-align: center
+            vertical-align: top
+            color: $textColor
+            font-weight: 200
+            background-color: $activeBackgroundColor
+            display: inline-block
+            margin: 0
+            border-top-right-radius: 10px
+            border-bottom-right-radius: 10px
+
+.fActivityBlock
+    display: inline-flex
+    margin: 1rem 1rem 1rem 0px
+    background-color: $activeBackgroundColor
+    color: $textColor
+    vertical-align: top
+    width: 38rem
+    max-width: 100%
+    border-radius: 5px
+    padding-bottom: 1rem
+
+    .fActivityUser
+        display: inline-block
+        padding-top: 10px
+        padding-left: 10px
+        margin-left: 0px
+        margin-right: 13px
+        vertical-align: top
+        font-weight: 400
+
+    .fActivityInfo
+        display: inline-block
+        margin-bottom: 0px
+        margin-top: 0px
+        padding-top: 12px
+
+        .fActivityInfoText
+            margin-bottom: 5px
+
+#reviewInput, #spentTimeInput
+    color: $textColor
+    background-color: $backgroundColor
+
+.md-form label.active
+    color: $textColor !important
+    background-color: $backgroundColor !important
+
+.metacritic
+    vertical-align: middle
+    text-align: center
+    color: #fff !important
+    font-family: Arial, Helvetica, sans-serif
+    font-style: normal !important
+    font-weight: bold !important
+    background-color: darkgrey
+    font-size: 35px
+    height: 2em
+    width: 2em
+    line-height: 2em
+    border-radius: 6px
+
+    &.green
+        background-color: rgb(102, 204, 51) !important
+    &.yellow
+        background-color: rgb(243, 193, 43) !important
+    &.red
+        background-color: rgb(255, 0, 0) !important
+
+.metacriticText
+    font-family: Arial, Helvetica, sans-serif
+    font-size: 12px
+    text-align: center
+    padding-left: 3px

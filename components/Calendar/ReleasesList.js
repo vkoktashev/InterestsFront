@@ -16,11 +16,10 @@ function ReleasesList({ calendar }) {
 		return (
 			<div>
 				{day.games?.map((game) => (
-					<div key={game.rawg_id} className='timelineEvent'>
+					<div key={game.rawg_id}>
 						Игра{" "}
 						<a
 							href={window.location.origin + "/game/" + game.rawg_slug}
-							className='dayInfoLink'
 							onClick={(e) => {
 								history.push("/game/" + game.rawg_slug);
 								e.preventDefault();
@@ -34,7 +33,6 @@ function ReleasesList({ calendar }) {
 						Фильм{" "}
 						<a
 							href={window.location.origin + "/movie/" + movie.tmdb_id}
-							className='dayInfoLink'
 							onClick={(e) => {
 								history.push("/movie/" + movie.tmdb_id);
 								e.preventDefault();
@@ -48,7 +46,6 @@ function ReleasesList({ calendar }) {
 						<div style={{ display: "inline-block" }}>
 							<a
 								href={window.location.origin + "/show/" + episode.tmdb_show.tmdb_id + "/season/" + episode.tmdb_season_number + "/episode/" + episode.tmdb_episode_number}
-								className='dayInfoLink'
 								onClick={(e) => {
 									history.push("/show/" + episode.tmdb_show.tmdb_id + "/season/" + episode.tmdb_season_number + "/episode/" + episode.tmdb_episode_number);
 									e.preventDefault();
@@ -58,7 +55,6 @@ function ReleasesList({ calendar }) {
 							&thinsp;сериала&thinsp;
 							<a
 								href={window.location.origin + "/show/" + episode.tmdb_show.tmdb_id}
-								className='dayInfoLink'
 								onClick={(e) => {
 									history.push("/show/" + episode.tmdb_show.tmdb_id);
 									e.preventDefault();
@@ -79,13 +75,36 @@ function ReleasesList({ calendar }) {
 		else return <MDBIcon icon='dice-d6' />;
 	}
 
+	function dateDiff(date) {
+		let time = date.getTime();
+		let timeNow = new Date().getTime();
+		return parseInt((time - timeNow) / (24 * 3600 * 1000));
+	}
+
+	function intToDays(number) {
+		if (11 <= number && number <= 14) return "дней";
+		else if (number % 10 === 1) return "день";
+		else if (2 <= number % 10 && number % 10 <= 4) return "дня";
+		else return "дней";
+	}
+
+	function remainedDays(date) {
+		let days = dateDiff(date);
+		return `${days} ${intToDays(days)}`;
+	}
+
 	return (
-		<Timeline className='releasesList' style={myStyle} lineColor='rgb(100, 100, 100)'>
+		<Timeline style={myStyle} lineColor='rgb(100, 100, 100)'>
 			{calendar?.map((day) => {
 				let date = new Date(day[0]);
 				return (
 					<TimelineEvent
-						title={date.toLocaleDateString("ru-RU", { year: date.getFullYear() === new Date().getFullYear() ? undefined : "numeric", month: "long", day: "numeric", weekday: "long" })}
+						title={`${remainedDays(date)}, ${date.toLocaleDateString("ru-RU", {
+							year: date.getFullYear() === new Date().getFullYear() ? undefined : "numeric",
+							month: "long",
+							day: "numeric",
+							weekday: "long",
+						})}`}
 						key={day[0]}
 						className='timelineEvent'
 						icon={getIconForDay(day[1])}
