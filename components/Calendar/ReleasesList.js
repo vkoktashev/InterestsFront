@@ -7,8 +7,8 @@ function ReleasesList({ calendar }) {
 	let history = useHistory();
 
 	const myStyle = {
-		backgroundColor: "rgb(30, 30, 30)",
-		color: "rgb(207, 207, 207)",
+		backgroundColor: "#191A1B",
+		color: "#F1F1FB",
 		border: "none",
 	};
 
@@ -76,9 +76,14 @@ function ReleasesList({ calendar }) {
 	}
 
 	function dateDiff(date) {
+		let now = new Date();
 		let time = date.getTime();
-		let timeNow = new Date().getTime();
-		return parseInt((time - timeNow) / (24 * 3600 * 1000));
+		let timeNow = now.getTime();
+		let diff = (time - timeNow) / (24 * 3600 * 1000);
+		if (diff < 1)
+			if (now.getUTCDay() === date.getUTCDay()) return 0;
+			else return 1;
+		return parseInt(diff) + 1;
 	}
 
 	function intToDays(number) {
@@ -90,11 +95,12 @@ function ReleasesList({ calendar }) {
 
 	function remainedDays(date) {
 		let days = dateDiff(date);
-		return `${days} ${intToDays(days)}`;
+		if (days > 0) return `${days} ${intToDays(days)}`;
+		else return "сегодня";
 	}
 
 	return (
-		<Timeline style={myStyle} lineColor='rgb(100, 100, 100)'>
+		<Timeline style={myStyle} lineColor='#A6A6AB'>
 			{calendar?.map((day) => {
 				let date = new Date(day[0]);
 				return (

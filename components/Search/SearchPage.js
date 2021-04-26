@@ -59,9 +59,9 @@ const SearchPage = observer((props) => {
 
 	return (
 		<div>
-			<div className='bg textureBG' />
+			<div className='bg' />
 			<div className='contentPage'>
-				<div className='contentBody header'>
+				<div className='contentBody header dark'>
 					<h1>Поиск</h1>
 					<MDBFormInline
 						className='md-form'
@@ -86,48 +86,47 @@ const SearchPage = observer((props) => {
 						activeCategory={activeCategory}
 						onChangeCategory={(category) => {
 							setActiveCategory(category);
-						}}
-					/>
+						}}>
+						<LoadingOverlay active={gamesState === "pending"} spinner text='Ищем игры...'>
+							<GamesBlock
+								games={games}
+								gamesPage={gamesPage}
+								onPaginate={(page) => {
+									setGamesPage(page);
+									searchGames(query, page, 6);
+								}}
+								hidden={activeCategory !== "Всё" && activeCategory !== "Игры"}
+							/>
+						</LoadingOverlay>
 
-					<LoadingOverlay active={gamesState === "pending"} spinner text='Ищем игры...'>
-						<GamesBlock
-							games={games}
-							gamesPage={gamesPage}
-							onPaginate={(page) => {
-								setGamesPage(page);
-								searchGames(query, page, 6);
-							}}
-							hidden={activeCategory !== "Всё" && activeCategory !== "Игры"}
-						/>
-					</LoadingOverlay>
+						<LoadingOverlay active={moviesState === "pending"} spinner text='Ищем фильмы...'>
+							<MoviesBlock
+								movies={movies}
+								moviesPage={moviesPage}
+								onPaginate={(page) => {
+									setMoviesPage(page);
+									searchMovies(query, page);
+								}}
+								hidden={activeCategory !== "Всё" && activeCategory !== "Фильмы"}
+							/>
+						</LoadingOverlay>
 
-					<LoadingOverlay active={moviesState === "pending"} spinner text='Ищем фильмы...'>
-						<MoviesBlock
-							movies={movies}
-							moviesPage={moviesPage}
-							onPaginate={(page) => {
-								setMoviesPage(page);
-								searchMovies(query, page);
-							}}
-							hidden={activeCategory !== "Всё" && activeCategory !== "Фильмы"}
-						/>
-					</LoadingOverlay>
+						<LoadingOverlay active={showsState === "pending"} spinner text='Ищем сериалы...'>
+							<ShowsBlock
+								shows={shows}
+								showsPage={showsPage}
+								onPaginate={(page) => {
+									setShowsPage(page);
+									searchShows(query, page);
+								}}
+								hidden={activeCategory !== "Всё" && activeCategory !== "Сериалы"}
+							/>
+						</LoadingOverlay>
 
-					<LoadingOverlay active={showsState === "pending"} spinner text='Ищем сериалы...'>
-						<ShowsBlock
-							shows={shows}
-							showsPage={showsPage}
-							onPaginate={(page) => {
-								setShowsPage(page);
-								searchShows(query, page);
-							}}
-							hidden={activeCategory !== "Всё" && activeCategory !== "Сериалы"}
-						/>
-					</LoadingOverlay>
-
-					<LoadingOverlay active={usersState === "pending"} spinner text='Ищем пользователей...'>
-						<UsersBlock users={users} hidden={activeCategory !== "Всё" && activeCategory !== "Пользователи"} />
-					</LoadingOverlay>
+						<LoadingOverlay active={usersState === "pending"} spinner text='Ищем пользователей...'>
+							<UsersBlock users={users} hidden={activeCategory !== "Всё" && activeCategory !== "Пользователи"} />
+						</LoadingOverlay>
+					</CategoriesTab>
 				</div>
 			</div>
 		</div>

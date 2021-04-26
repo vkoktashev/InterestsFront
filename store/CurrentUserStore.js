@@ -69,8 +69,8 @@ class CurrentUser {
 		this.saveSettingsState = "done";
 	};
 	patchSettingsSuccess = (result) => {
-		this.unwatched = result;
 		this.saveSettingsState = "saved";
+		this.settings = result;
 		setTimeout(this.patchSettingsReset, 1000);
 	};
 	patchSettingsFailure = (error) => {

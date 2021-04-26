@@ -1,10 +1,6 @@
 
 .confirmPasswordForm
-    margin-top: 10rem
-    color: $textColor
-    margin-left: auto
-    margin-right: auto
-    width: 30%
+    color: $newText3
 
 .confirmPasswordLabel
     padding-bottom: 0px
@@ -13,10 +9,10 @@
 
 .confirmPasswordInput
     width: 300px
-    background-color: $backgroundColor
-    color: $textColor
+    background-color: $newBackground2
+    color: $newText3
     border: 1px solid
-    border-color: $textColor
+    border-color: $newText3
     border-radius: 5px
     outline: 0
     padding-bottom: 0px
@@ -25,90 +21,71 @@
     font-size: 1.2rem
 
 .confirmPasswordInput:focus
-    border-color: #80bdff
     outline: 0
 
 .confirmPasswordButton
-    background-color: $activeColor !important
-    color: $headerTextColor
+    background-color: $newAccent2 !important
+    color: $newText3
     font-size: 1.1rem
     padding: 5px 30px
     width: 12rem
-    border-radius: 5px
+    border-radius: 0.5rem
+    border: none
 
 .confirmPasswordButton:disabled
-    background-color: #5b1a81 !important
-    color: rgb(177, 177, 177)
+    background-color: $newAccent3 !important
+    color: $newText2
     font-size: 1.1rem
     padding: 5px 30px
     width: 12rem
     border-radius: 5px
-
-.show .dropdown-menu
-    background-color: $backgroundColor
-
-.dropdown-item
-    color: $textColor !important
-
-.dropdown-item:hover,
-.dropdown-item:focus
-    background-color: $activeBackgroundColor !important
-
-.navDropdownItem
-    color: $textColor !important
-    padding-left: 0
-    margin-left: 0
-    font-size: 1em !important
-    font-weight: 400 !important
 
 .confirmEmailSuccess,
 .confirmEmailFailure
-    margin-top: 3rem
-    margin-left: 3rem
+    display: flex
+    flex-direction: row
+    justify-content: center
+    margin-top: 5rem
     font-size: 3rem
 
 .notFound
-    position: absolute
-    top: 50%
-    left: 50%
-    margin-right: -50%
-    transform: translate(-50%, -50%)
-    text-align: center
-    max-width: 80%
+    display: flex
+    align-items: center
+    flex-direction: column
+    width: 80%
+    margin-left: 10%
 
 .registrationBody, .loginBody
-    background-color: $backgroundColor
-    color: $textColor
+    background-color: $newBackground2
+    color: $newText3
     text-align: center
 
 input.form-control
-    background-color: $backgroundColor
-    color: $textColor
+    background-color: $newBackground2
+    color: $newText3
     margin-bottom: 10px
     outline: none
 
 input.form-control:focus
-    background-color: $backgroundColor
-    color: $textColor
+    background-color: $newBackground2
+    color: $newText3
 
 input.form-control:-webkit-autofill
-    box-shadow: inset 0 0 0 50px $backgroundColor !important
-    -webkit-box-shadow: inset 0 0 0 50px $backgroundColor !important
-    -webkit-text-fill-color: $textColor !important
-    color: $textColor !important
+    box-shadow: inset 0 0 0 50px $newBackground2 !important
+    -webkit-box-shadow: inset 0 0 0 50px $newBackground2 !important
+    -webkit-text-fill-color: $newText3 !important
+    color: $newText3 !important
 
 .confirmButton
-    background-color: $activeColor !important
-    color: $headerTextColor
-
-.note
-    color: black
+    background-color: $newAccent2 !important
+    border-radius: 0.5rem
+    color: $newText3
 
 .passwordResetLabel
     display: block
     margin-top: 15px
-    color: $textColor
+    color: $newText3
 
 .passwordResetLabel:hover
-    color: #7654de
+    color: $newAccent2
     cursor: pointer

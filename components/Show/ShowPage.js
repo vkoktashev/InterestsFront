@@ -22,7 +22,7 @@ import ScoreBlock from "../Common/ScoreBlock";
 const ShowPage = observer((props) => {
 	const { loggedIn } = AuthStore;
 	const { openLoginForm } = PagesStore;
-	const { patchSettings, saveSettingsState } = CurrentUserStore;
+	const { saveSettingsState } = CurrentUserStore;
 	const { requestShow, show, showState, setShowStatus, requestShowUserInfo, userInfo, friendsInfo, userInfoState, anyError } = ShowStore;
 
 	let { id } = useParams();
@@ -96,13 +96,13 @@ const ShowPage = observer((props) => {
 							<h5 style={{ marginBottom: "10px", marginTop: "-10px" }}>{show.original_name}</h5>
 							<div className='mainInfo'>
 								<p hidden={!show.genres}>Жанр: {show.genres}</p>
-								<p hidden={!show.companies}>Компания: {show.companies}</p>
-								<p hidden={!show.first_date}>Дата выхода первой серии: {show.first_date}</p>
-								<p hidden={!show.last_date}>Дата выхода последней серии: {show.last_date}</p>
+								<p hidden={!show.production_companies}>Компания: {show.production_companies}</p>
+								<p hidden={!show.first_air_date}>Дата выхода первой серии: {show.first_air_date}</p>
+								<p hidden={!show.last_air_date}>Дата выхода последней серии: {show.last_air_date}</p>
 								<p hidden={show.episode_runtime === null}>Продолжительность (мин): {show.episode_run_time}</p>
 								<p>Количество сезонов: {show.seasons_count}</p>
 								<p>Количество серий: {show.episodes_count}</p>
-								<p hidden={!show.show_status}>Статус: {show.show_status}</p>
+								<p hidden={!show.status}>Статус: {show.status}</p>
 							</div>
 							<LoadingOverlay active={userInfoState === "pending" && !showState === "pending"} spinner text='Загрузка...'>
 								<Rating
@@ -149,15 +149,6 @@ const ShowPage = observer((props) => {
 						<div>
 							<h3>Описание</h3>
 							<div dangerouslySetInnerHTML={{ __html: show.overview }} />
-							<br />
-							<button
-								className={"saveReviewButton"}
-								hidden={!loggedIn}
-								onClick={() => {
-									patchSettings({ backdrop_path: show.backdrop_path });
-								}}>
-								Выбрать как фон профиля
-							</button>
 						</div>
 						<div className='showSeasonsBody'>
 							<h3 style={{ paddingTop: "15px" }}>Список серий</h3>

@@ -11,7 +11,7 @@ import { MDBModal, MDBModalBody, MDBContainer, MDBRow, MDBCol, MDBBtn } from "md
  */
 const LoginForm = observer((props) => {
 	const { tryAuth, authState } = AuthStore;
-	const { LoginFormIsOpen, closeLoginForm, openResetPasswordForm } = PagesStore;
+	const { LoginFormIsOpen, closeLoginForm, openResetPasswordForm, openRegistrateForm } = PagesStore;
 
 	const [password, setPassword] = useState("");
 	const [login, setLogin] = useState("");
@@ -48,7 +48,7 @@ const LoginForm = observer((props) => {
 
 								<div className='text-center mt-4'>
 									<MDBBtn type='submit' className='confirmButton'>
-										Войти
+										{authState !== "pending" ? "Войти" : "Загрузка..."}
 									</MDBBtn>
 									<label
 										className='passwordResetLabel'
@@ -57,6 +57,14 @@ const LoginForm = observer((props) => {
 											openResetPasswordForm();
 										}}>
 										Восстановить пароль
+									</label>
+									<label
+										className='passwordResetLabel'
+										onClick={() => {
+											closeLoginForm();
+											openRegistrateForm();
+										}}>
+										Зарегистрироваться
 									</label>
 								</div>
 							</form>
