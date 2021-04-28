@@ -1,3 +1,16 @@
+button
+    background-color: $newAccent2
+    color: $newText3
+    border: none
+    outline: none
+    border-radius: 8px
+
+button:hover
+    background-color: $newAccent1
+
+button:disabled
+    background-color: $newAccent3
+    color: $newText2
 
 .categoriesTabs
     max-width: 100%
@@ -126,10 +139,6 @@
         .fActivityInfoText
             margin-bottom: 5px
 
-#reviewInput, #spentTimeInput
-    color: $newText3
-    background-color: $newBackground2
-
 .md-form label.active
     color: $newText2 !important
     background-color: $newBackground2 !important
@@ -221,13 +230,14 @@
     @include headline6
     color: $newText3
     margin-left: 1rem
+    position: relative
 
     input
         background-color: $newBackground3
         color: $newText3
         border: none
         outline: none
-        width: 40px
+        min-width: 30px
         text-align: center
 
         &[type=number]
@@ -236,16 +246,30 @@
         &::-webkit-outer-spin-button, &::-webkit-inner-spin-button
             -webkit-appearance: none
 
+        &:hover ~ .dataList
+            display: flex
+
     .minusButton
         background-color: $newBackground3
-        color: $newText3
-        border: none
-        outline: none
         border-radius: 8px 0 0 8px
 
     .plusButton
         background-color: $newBackground3
-        color: $newText3
-        border: none
-        outline: none
         border-radius: 0 8px 8px 0
+
+    .dataList
+        position: absolute
+        z-index: 1
+        left: 0
+        width: 100%
+        display: none
+        flex-direction: column
+        font-size: 1.2rem
+
+        &:active, &:hover
+            display: flex
+
+        
+
+
+    

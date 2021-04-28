@@ -6,7 +6,6 @@ import AuthStore from "../../store/AuthStore";
 import PagesStore from "../../store/PagesStore";
 import CurrentUserStore from "../../store/CurrentUserStore";
 
-import { MDBInput } from "mdbreact";
 import LoadingOverlay from "react-loading-overlay";
 import { toast } from "react-toastify";
 
@@ -139,9 +138,12 @@ const MoviePage = observer((props) => {
 							<div dangerouslySetInnerHTML={{ __html: movie.overview }} />
 						</div>
 						<div className='reviewBody' hidden={!loggedIn}>
-							<h3 style={{ paddingTop: "10px" }}>Отзывы</h3>
+							<h3 style={{ paddingTop: "10px" }}>Отзыв</h3>
 							<LoadingOverlay active={userInfoState === "pending" && !movieState === "pending"} spinner text='Загрузка...'>
-								<MDBInput type='textarea' id='reviewInput' label='Ваш отзыв' value={review} onChange={(event) => setReview(event.target.value)} outline />
+								<div className='reviewBlock'>
+									Ваш отзыв
+									<textarea type='textarea' id='reviewInput' value={review} onChange={(event) => setReview(event.target.value)} />
+								</div>
 								<button
 									className={"saveReviewButton"}
 									disabled={!loggedIn | (userStatus === "Не смотрел")}
