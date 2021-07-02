@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 //import remotedev from "mobx-remotedev";
-import AuthStore from "./AuthStore";
 import * as userRequests from "../services/userRequests";
+import AuthStore from "./AuthStore";
 
 class User {
 	user = {};
@@ -16,24 +16,25 @@ class User {
 		makeAutoObservable(this);
 	}
 
+	get isCurrentUser() {
+		return AuthStore.loggedIn && parseInt(this.user.id) === parseInt(AuthStore.user.id);
+	}
+
 	requestUser = async (username) => {
 		this.userState = "pending";
-		await AuthStore.checkAuthorization();
-		userRequests.getUserInfo(localStorage.getItem("token"), username).then(this.requestUserSuccess, this.requestUserFailure);
+		userRequests.getUserInfo(username).then(this.requestUserSuccess, this.requestUserFailure);
 	};
 	requestUserSuccess = (result) => {
 		this.user = result;
-		console.log(result);
 		this.userState = "done";
 	};
 	requestUserFailure = (error) => {
 		this.userState = "error: " + error;
 	};
 
-	requestUserLogs = async (userID, page, resultsOnPage) => {
+	requestUserLogs = async (userID, page, resultsOnPage, query, filters) => {
 		this.userLogsState = "pending";
-		await AuthStore.checkAuthorization();
-		userRequests.getUserLog(localStorage.getItem("token"), userID, page, resultsOnPage).then(this.requestLogsSuccess, this.requestLogsFailure);
+		userRequests.getUserLog(userID, page, resultsOnPage, query, filters).then(this.requestLogsSuccess, this.requestLogsFailure);
 	};
 	requestLogsSuccess = (result) => {
 		this.userLogs = result;
@@ -43,11 +44,25 @@ class User {
 		if (error.response.status === 403) this.userLogsState = "forbidden";
 		else this.userLogsState = "error: " + error;
 	};
+	deleteUserLog = async (logType, logID) => {
+		this.userLogsState = "pending";
+		userRequests.deleteUserLog(this.user.id, logType, logID).then(() => this.deleteUserLogSuccess(logType, logID), this.deleteUserLogFailure);
+	};
+	deleteUserLogSuccess = (logType, logID) => {
+		let newLogs = this.userLogs.log.filter((log) => {
+			return !(log.id === logID && log.type === logType);
+		});
+		this.userLogs = { ...this.userLogs, log: newLogs };
+		this.userLogsState = "done";
+	};
+	deleteUserLogFailure = (error) => {
+		if (error.response.status === 403) this.userLogsState = "forbidden";
+		else this.userLogsState = "error: " + error;
+	};
 
-	requestUserFriendsLogs = async (userID, page, resultsOnPage) => {
+	requestUserFriendsLogs = async (userID, page, resultsOnPage, query, filters) => {
 		this.userFriendsLogsState = "pending";
-		await AuthStore.checkAuthorization();
-		userRequests.getUserFriendsLog(localStorage.getItem("token"), userID, page, resultsOnPage).then(this.requestFriendsLogsSuccess, this.requestFriendsLogsFailure);
+		userRequests.getUserFriendsLog(page, resultsOnPage, query, filters).then(this.requestFriendsLogsSuccess, this.requestFriendsLogsFailure);
 	};
 	requestFriendsLogsSuccess = (result) => {
 		this.userFriendsLogs = result;
@@ -58,10 +73,8 @@ class User {
 	};
 
 	setUserStatus = async (is_following, userID) => {
-		if (await AuthStore.checkAuthorization()) {
-			this.setUserStatusState = "pending";
-			userRequests.setUserStatus(localStorage.getItem("token"), is_following, userID).then(this.setUserStatusSuccess, this.setUserStatusFailure);
-		}
+		this.setUserStatusState = "pending";
+		userRequests.setUserStatus(is_following, userID).then(this.setUserStatusSuccess, this.setUserStatusFailure);
 	};
 	setUserStatusSuccess = (result) => {
 		this.user.is_followed = result.is_following;
