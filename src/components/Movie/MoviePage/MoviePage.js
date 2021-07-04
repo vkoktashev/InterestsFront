@@ -19,7 +19,7 @@ import "./movie-page.sass";
  * Основная страница приложения
  */
 const MoviePage = observer((props) => {
-	const { movie, movieState, requestMovie, setMovieStatus, userInfo, friendsInfo, userInfoState, requestUserInfo, anyError } = MovieStore;
+	const { movie, movieState, requestMovie, setMovieStatus, setMovieReview, userInfo, friendsInfo, userInfoState, requestUserInfo, anyError } = MovieStore;
 	const { loggedIn } = AuthStore;
 	const { saveSettingsState } = CurrentUserStore;
 	const { openLoginForm } = PagesStore;
@@ -88,7 +88,7 @@ const MoviePage = observer((props) => {
 				<div className='movie-page__body'>
 					<div className='movie-page__header'>
 						<div className='movie-page__poster'>
-							<img src={movie.poster_path} className='img-fluid' alt='' />
+							<img src={movie.poster_path} className='movie-page__poster-img' alt='' />
 						</div>
 						<div className='movie-page__info'>
 							<h1 className='movie-page__info-header'>{movie.name}</h1>
@@ -135,7 +135,7 @@ const MoviePage = observer((props) => {
 					</div>
 					<div className='movie-page__overview'>
 						<div>
-							<h3>Описание</h3>
+							<h3 className='game-page__overview-header'>Описание</h3>
 							<div dangerouslySetInnerHTML={{ __html: movie.overview }} />
 						</div>
 						<h3 className='movie-page__review-header'>Отзыв</h3>
@@ -149,7 +149,7 @@ const MoviePage = observer((props) => {
 									className='movie-page__review-save-button'
 									disabled={!loggedIn | (userStatus === "Не смотрел")}
 									onClick={() => {
-										setMovieStatus({ review: review });
+										setMovieReview({ review: review });
 									}}>
 									Сохранить
 								</button>

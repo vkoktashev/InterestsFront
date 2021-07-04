@@ -20,7 +20,7 @@ import InputNumber from "../../Common/InputNumber/InputNumber";
  * Основная страница приложения
  */
 const GamePage = observer((props) => {
-	const { game, gameState, requestGame, setGameStatus, userInfo, friendsInfo, userInfoState, requestUserInfo, anyError } = GameStore;
+	const { game, gameState, requestGame, setGameStatus, setGameReview, userInfo, friendsInfo, userInfoState, requestUserInfo, anyError } = GameStore;
 	const { loggedIn } = AuthStore;
 	const { openLoginForm } = PagesStore;
 
@@ -148,7 +148,7 @@ const GamePage = observer((props) => {
 					<div className='game-page__overview'>
 						<div>
 							{/* <video width='800' height='450' controls='controls' poster={game.rawg?.clip?.preview} src={game.rawg?.clip?.clip} type='video' /> */}
-							<h3>Описание</h3>
+							<h3 className='game-page__overview-header'>Описание</h3>
 							<div dangerouslySetInnerHTML={{ __html: game.overview }} />
 						</div>
 						<h3 className='game-page__review-header'>Отзыв</h3>
@@ -170,7 +170,7 @@ const GamePage = observer((props) => {
 										if (!loggedIn) {
 											openLoginForm();
 										} else {
-											setGameStatus({ review: review, spent_time: spentTime });
+											setGameReview({ review: review, spent_time: spentTime });
 										}
 									}}>
 									Сохранить

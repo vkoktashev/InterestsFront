@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 import AuthStore from "../../../store/AuthStore";
 import UserStore from "../../../store/UserStore";
-import { MDBIcon } from "mdbreact";
+import { FaLock } from "react-icons/fa";
+import { useQueryParam, StringParam, withDefault } from "use-query-params";
 
 import LoadingOverlay from "react-loading-overlay";
 import GameBlock from "../ItemsBlock/GameBlock";
@@ -24,26 +25,16 @@ const UserPage = observer((props) => {
 	const { user, userState, requestUser, setUserStatus, requestUserLogs, userLogs, userLogsState, requestUserFriendsLogs, userFriendsLogs, userFriendsLogsState, deleteUserLog, isCurrentUser } =
 		UserStore;
 
-	let { userID, category } = useParams();
-	const [activeCategory, setActiveCategory] = useState("Лента");
+	let { userID } = useParams();
+	const [activeCategory, setActiveCategory] = useQueryParam("сategory", withDefault(StringParam, "Лента"));
 	const [lastActivity, setLastActivity] = useState("");
 
 	useEffect(
 		() => {
 			requestUser(userID);
-			setActiveCategory("Лента");
 		},
 		// eslint-disable-next-line
 		[userID, requestUser]
-	);
-
-	useEffect(
-		() => {
-			if (category) setActiveCategory(category);
-			else setActiveCategory("Лента");
-		},
-		// eslint-disable-next-line
-		[category]
 	);
 
 	useEffect(() => {
@@ -80,12 +71,7 @@ const UserPage = observer((props) => {
 						</button>
 					</div>
 
-					<CategoriesTab
-						categories={["Лента", "Игры", "Фильмы", "Сериалы", "Статистика", "Друзья"]}
-						activeCategory={activeCategory}
-						onChangeCategory={(category) => {
-							setActiveCategory(category);
-						}}>
+					<CategoriesTab categories={["Лента", "Игры", "Фильмы", "Сериалы", "Статистика", "Друзья"]} activeCategory={activeCategory} onChangeCategory={setActiveCategory}>
 						<div hidden={activeCategory !== "Лента"}>
 							<div hidden={!user.is_available}>
 								<LoadingOverlay active={userLogsState === "pending" && userState !== "pending"} spinner text='Загрузка активности...'>
@@ -93,7 +79,7 @@ const UserPage = observer((props) => {
 								</LoadingOverlay>
 							</div>
 							<h4 hidden={user.is_available || userState === "pending"}>
-								<MDBIcon icon='lock' style={{ marginRight: "1rem" }} />
+								<FaLock style={{ marginRight: "1rem" }} />
 								Профиль скрыт настройками приватности
 							</h4>
 						</div>
@@ -112,7 +98,7 @@ const UserPage = observer((props) => {
 						<div hidden={activeCategory !== "Друзья"}>
 							<FriendBlock users={user.followed_users ? user.followed_users : []} />
 							<div hidden={currentUser.username !== user.username}>
-								<h4>Активность друзей: </h4>
+								<h4 className='user-page__friends-header'>Активность друзей: </h4>
 								<LoadingOverlay active={userFriendsLogsState === "pending" && userState !== "pending"} spinner text='Загрузка активности...'>
 									<UserLogs userID={userID} logs={userFriendsLogs} requestUserLogs={requestUserFriendsLogs} currentUser={isCurrentUser} showUsername={true} logsType={"userFriends"} />
 								</LoadingOverlay>
