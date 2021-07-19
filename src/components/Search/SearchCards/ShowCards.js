@@ -10,10 +10,11 @@ function ShowCards({ shows, hidden }) {
 					id: show.id,
 					poster: `url(${"http://image.tmdb.org/t/p/w300" + show.backdrop_path})`,
 					link: "/show/" + show.id,
+					overview: show.overview,
 				};
 
-				if (show.release_date) {
-					let mas = show.release_date.split("-");
+				if (show.first_air_date) {
+					let mas = show.first_air_date.split("-");
 					let newDate = mas[2] + "." + mas[1] + "." + mas[0];
 					object.release_date = newDate;
 				} else object.release_date = "";
